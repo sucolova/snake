@@ -38,8 +38,7 @@ function hasGameEnded() { // has snake collidet with itself? has snake hit a wal
   for (let i = 4; i < snake.length; i += 1) { // i < 4 not neccessary because snake with 4 parts cannot hit itself
     const hasCollided = snake[i].x === snake[0].x && snake[i].y === snake[0].y;
     if (hasCollided) {
-      gameHasEnded = true;
-      console.log(gameHasEnded);
+      return gameHasEnded = true;
     }
   }
   const hitLeftWall = snake[0].x < 0;
@@ -48,7 +47,6 @@ function hasGameEnded() { // has snake collidet with itself? has snake hit a wal
   const hitBottomWall = snake[0].y > snakeBoard.height - 10;
 
   gameHasEnded = hitLeftWall || hitRightWall || hitBottomWall || hitTopWall;
-  console.log(gameHasEnded);
 }
 
 function clearCanvas() {
@@ -127,16 +125,17 @@ function changeDirection(event) {
 })();
 
 document.addEventListener('keydown', changeDirection);
-document.addEventListener('keyup', (event) => {
+document.addEventListener('keyup', (event) => { //start the game by pressing enter
   if (event.key === 'Enter') {
-    if (gameHasEnded === undefined) {
+    if (gameHasEnded === undefined) { // for starting the game the first time
       gameHasEnded = false;
       main();
-    } else if (gameHasEnded) {
+    } else if (gameHasEnded) { // for starting the game after gameover
       snake = [{ x: 200, y: 200 }, { x: 190, y: 200 }, { x: 180, y: 200 }, { x: 170, y: 200 }, { x: 160, y: 200 }];
       gameHasEnded = false;
+      dx = 10;
+      dy = 0;
       main();
     }
-
   };
 })
